@@ -3,19 +3,27 @@ using System.Collections.Generic;
 
 namespace SportApp
 {
-    class Program
+    class SportsAppConsole
     {
         static void Main(string[] args)
+        {
+            var MyProgram = new SportsAppConsole();
+            MyProgram.Run();
+        }
+
+        private void Run()
         {
             var searchEngine = new TeamSearchEngine();
             searchEngine.Initialize();
 
-            while(true)
+            var shouldApplicationRun = true;
+            while (shouldApplicationRun)
             {
                 ShowRootMenu();
                 var option = GetRootMenuOption();
-                switch(option){
-                    case 1: 
+                switch (option)
+                {
+                    case 1:
                         var allTeams = searchEngine.GetAllTeams();
                         DisplayTeams(allTeams);
                         break;
@@ -25,12 +33,13 @@ namespace SportApp
                         DisplayTeams(matchingTeams);
                         break;
                     case 3:
-                        return;
+                        shouldApplicationRun = false;
+                        break;
                 }
             }
         }
 
-        private static void DisplayTeams(List<Team> allTeams)
+        private void DisplayTeams(List<Team> allTeams)
         {
             if(allTeams.Count == 0)
             {
@@ -43,7 +52,7 @@ namespace SportApp
             }
         }
 
-        private static string GetTeamSearchTerm()
+        private string GetTeamSearchTerm()
         {
             while(true)
             {
@@ -58,7 +67,7 @@ namespace SportApp
             }
         }
 
-        private static int GetRootMenuOption()
+        private int GetRootMenuOption()
         {
             while(true)
             {
@@ -73,7 +82,7 @@ namespace SportApp
             }
         }
 
-        private static void ShowRootMenu()
+        private void ShowRootMenu()
         {
             Console.WriteLine("What would you like to do?");
             Console.WriteLine("1) List All Teams");
